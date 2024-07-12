@@ -1,0 +1,19 @@
+meta {
+  name: 게시물 수정
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{URL}}/posts/86
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "type": "{{name}}",
+    "title": "세번째qqqqqqq",
+    "content": "세번째 qwerqwer."
+  }
+}
