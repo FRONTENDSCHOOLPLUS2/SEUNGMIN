@@ -1,0 +1,19 @@
+meta {
+  name: 게시물 등록
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{URL}}/posts
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "type": "{{name}}",
+    "title": "세번째qqqqqqq",
+    "content": "세번째 게시물입니다."
+  }
+}
