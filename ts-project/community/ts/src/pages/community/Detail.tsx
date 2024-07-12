@@ -6,11 +6,21 @@ import useLoginfetch from '@hooks/useLoginfetch';
 import { toast } from 'react-toastify';
 import Spinner from '@components/Spinner';
 
+interface DetailProps {
+  title: string;
+  user: {
+    name: string;
+    _id: number;
+  };
+  content: string;
+}
+
 function Detail() {
   const navigate = useNavigate();
   const param = useParams()._id;
-  const [data, setData] = useState(null);
-  const { fetchData } = useLoginfetch(`/posts/${param}`, '게시물 삭제 요청');
+  const [data, setData] = useState<null | DetailProps>(null);
+  const { fetchData } = useLoginfetch(`/posts/${param}`, '게시물 인증 통신');
+  const session_id = sessionStorage.getItem('user_id') as string;
 
   const handleDelete = async () => {
     try {
@@ -22,7 +32,7 @@ function Detail() {
         navigate(-1);
 
         toast.success('게시물이 삭제되었습니다.', {
-          autoclose: 2000,
+          autoClose: 2000,
           hideProgressBar: false,
         });
       }
@@ -68,7 +78,7 @@ function Detail() {
           </div>
           <div className='flex justify-end my-4'>
             <Button onClick={() => history.back()}>목록</Button>
-            {data.user._id === +sessionStorage.getItem('user_id') && (
+            {data && data.user._id === +session_id && (
               <div>
                 <Button
                   bgColor='gray'

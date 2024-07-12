@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { SignupValues } from 'types/user';
 
 function Signup() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Signup() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<SignupValues>();
   const { send } = useMutation('/users', '회원가입 통신');
   const [formData, setFormData] = useState({
     email: '',
@@ -22,9 +23,9 @@ function Signup() {
     profileImage: null, // 프로필 이미지 정보를 담을 객체
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: SignupValues) => {
     try {
-      let updatedFormData = {
+      const updatedFormData = {
         ...formData,
         email: data.email,
         name: data.name,
@@ -53,7 +54,7 @@ function Signup() {
           profileImage: fileResult,
         }));
 
-        const sendResponse = await send({
+        const sendResponse: Response = await send({
           method: 'POST',
           body: JSON.stringify({
             ...updatedFormData,
@@ -62,7 +63,7 @@ function Signup() {
         });
 
         if (!sendResponse.ok) {
-          toast.fail('회원가입 실패', {
+          toast.error('회원가입 실패', {
             autoClose: 2000,
             hideProgressBar: true,
           });
@@ -78,7 +79,7 @@ function Signup() {
       navigate(`/user/login`);
     } catch (error) {
       console.error(error);
-      toast.fail('회원가입 실패', {
+      toast.error('회원가입 실패', {
         autoClose: 2000,
         hideProgressBar: true,
       });
@@ -107,7 +108,6 @@ function Signup() {
               id='name'
               placeholder='이름을 입력하세요'
               className='w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400 dark:bg-gray-700'
-              name='name'
               {...register('name', { required: true })}
             />
             {/* 입력값 검증 에러 출력 */}
@@ -129,7 +129,6 @@ function Signup() {
               id='email'
               placeholder='이메일을 입력하세요'
               className='w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400 dark:bg-gray-700'
-              name='email'
               {...register('email', { required: true })}
             />
             {/* 입력값 검증 에러 출력 */}
@@ -151,7 +150,6 @@ function Signup() {
               id='password'
               placeholder='비밀번호를 입력하세요'
               className='w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-orange-400 dark:bg-gray-700'
-              name='password'
               {...register('password', { required: true })}
             />
             {/* 입력값 검증 에러 출력 */}
@@ -175,7 +173,6 @@ function Signup() {
               accept='image/*'
               placeholder='이미지를 선택하세요'
               className='w-full px-3 py-2 border rounded-lg dark:bg-gray-700'
-              name='profileImage'
               {...register('profileImage', { required: false })}
             />
           </div>

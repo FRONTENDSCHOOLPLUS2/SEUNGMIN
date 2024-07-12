@@ -10,7 +10,7 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     history.back();
 
@@ -44,7 +44,7 @@ function Login() {
           });
         } else {
           setError('로그인 실패');
-          toast.fail('로그인 실패', {
+          toast.error('로그인 실패', {
             autoClose: 2000,
             hideProgressBar: true,
           });

@@ -1,6 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 
-function ListItem({ data }) {
+type ListItemProps = {
+  data: {
+    _id: string;
+    title: string;
+    user: {
+      name: string;
+    };
+    views: number;
+    repliesCount: number;
+    createdAt: string;
+  };
+};
+
+function ListItem({ data }: ListItemProps) {
   const navigate = useNavigate();
 
   return (

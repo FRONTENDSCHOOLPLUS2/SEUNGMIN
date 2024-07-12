@@ -3,12 +3,12 @@ import Pagination from '@components/Pagination';
 import Search from '@components/Search';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ListItem from './ListItem';
+import ListItem from '@pages/community/ListItem';
 import Spinner from '@components/Spinner';
 
 function List() {
   const navigate = useNavigate();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const param = useParams().type;
 
   useEffect(() => {
@@ -87,10 +87,10 @@ function List() {
 
             {/* 본문 출력 */}
             {data ? (
-              data.map((item) => <ListItem key={item._id} data={item} />)
+              data.map((item) => <ListItem data={item} />)
             ) : (
               <tr>
-                <td colSpan='6' className='text-center'>
+                <td colSpan={6} className='text-center'>
                   <Spinner />
                 </td>
               </tr>

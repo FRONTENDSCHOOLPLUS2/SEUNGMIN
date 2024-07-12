@@ -4,21 +4,22 @@ import Button from '@components/Button';
 import Theme from '@components/Theme';
 import useLoginFetch from '@hooks/useLoginfetch';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserType } from 'types/user';
 
 function Header() {
   const navigate = useNavigate();
   const { accessToken, user_id } = sessionStorage;
-  // console.log(user_id);
-  const { data } = useLoginFetch(`/users/${user_id}`);
+  const { data } = useLoginFetch<UserType>(`/users/${user_id}`);
 
   const handleLogout = () => {
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('user_id');
 
-    // if (!sessionStorage) {
-    // toast.fail('로그아웃 되었습니다.');
-    // }
+    if (!sessionStorage.getItem('user_id')) {
+      toast.success('로그아웃 되었습니다.');
+    }
     navigate('/');
     // window.location.reload(); // Add this line to refresh the page
   };
@@ -50,7 +51,7 @@ function Header() {
           {accessToken && data ? (
             //@ 로그인 후
             <p className='flex items-center'>
-              {!JSON.stringify(data.item.profileImage) === '{}' ? (
+              {JSON.stringify(data.item.profileImage) === '{}' ? (
                 <img
                   className='w-8 rounded-full mr-2'
                   src={`https://api.fesp.shop/${data.item.profileImage.path}`}
