@@ -18,9 +18,13 @@ function Header() {
     sessionStorage.removeItem('user_id');
 
     if (!sessionStorage.getItem('user_id')) {
-      toast.success('로그아웃 되었습니다.');
+      toast.success('로그아웃 되었습니다.', {
+        autoClose: 2000,
+        hideProgressBar: true,
+      });
+      navigate('/');
     }
-    navigate('/');
+
     // window.location.reload(); // Add this line to refresh the page
   };
 

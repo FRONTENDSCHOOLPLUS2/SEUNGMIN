@@ -36,12 +36,13 @@ function Login() {
           sessionStorage.setItem('user_id', JSON.stringify(result.item._id));
 
           // 페이지 새로고침
-          // window.location.reload();
-          navigate('/');
+          window.location.reload();
+
           toast.success('로그인 성공', {
             autoClose: 2000,
             hideProgressBar: true,
           });
+          navigate('/');
         } else {
           setError('로그인 실패');
           toast.error('로그인 실패', {
