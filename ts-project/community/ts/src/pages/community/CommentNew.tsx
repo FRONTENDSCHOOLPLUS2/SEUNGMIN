@@ -6,13 +6,7 @@ function CommentNew() {
       <h4 className='mb-4'>새로운 댓글을 추가하세요.</h4>
       <form>
         <div className='mb-4'>
-          <textarea
-            rows='3'
-            cols='40'
-            className='block p-2 w-full text-sm border rounded-lg border-gray-300 bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white'
-            placeholder='내용을 입력하세요.'
-            name='comment'
-          ></textarea>
+          <textarea rows={3} cols={40} className='block p-2 w-full text-sm border rounded-lg border-gray-300 bg-gray-50 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white' placeholder='내용을 입력하세요.' name='comment'></textarea>
 
           {/* 에러 메세지 출력 */}
           {/*
